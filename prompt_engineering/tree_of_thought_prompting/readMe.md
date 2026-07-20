@@ -1,6 +1,6 @@
 # Tree-of-Thought (ToT) Reasoning with Ollama and Flask
 
-## Overview
+## Overview 
 
 This project demonstrates **Tree-of-Thought (ToT) Prompting**, an advanced reasoning framework that allows Large Language Models (LLMs) to explore multiple possible solution paths, evaluate them, and select the most promising answer.
 
