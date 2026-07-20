@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head><title>Chain-of-Thought Demo</title></head>
+<body style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 40px auto; background: #f0f2f5;">
+  <div style="background: linear-gradient(135deg, #6a5af9, #d66efd); color: white; padding: 16px 20px; border-radius: 12px 12px 0 0; font-size: 18px; font-weight: 600;">
+    🧠 Chain-of-Thought Reasoning
+  </div>
+  <div style="background: white; border: 1px solid #ddd; border-top: none; padding: 20px; border-radius: 0 0 12px 12px;">
+    <p style="color:#555; font-size:14px; margin-top:0;">
+      Ask a reasoning/math/logic question. The model is prompted to show its step-by-step thinking before the final answer.
+    </p>
+    <textarea id="question" rows="3" placeholder="e.g. If a train travels 60 miles in 1.5 hours, what is its average speed?"
+      style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; box-sizing: border-box; resize: vertical;"></textarea>
+    <button onclick="solve()"
+      style="margin-top: 10px; padding: 10px 20px; background: #6a5af9; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 14px;">
+      Solve
+    </button>
+    <div id="result" style="margin-top: 20px; padding: 14px; background: #e9e9eb; border-radius: 10px; display: none; white-space: pre-wrap; color:#222;"></div>
+  </div>
+  <script>
+    async function solve() {
+      const question = document.getElementById("question").value;
+      if (!question) return;
+      const resultBox = document.getElementById("result");
+      resultBox.style.display = "block";
+      resultBox.innerText = "Thinking...";
+      const res = await fetch("/solve", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({question})
+      });
+      const data = await res.json();
+      resultBox.innerText = data.reply;
+    }
+  </script>
+</body>
+</html>
