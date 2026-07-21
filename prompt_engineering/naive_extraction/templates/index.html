@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Naive Product Extraction</title>
+</head>
+
+<body style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 40px auto; background: #f0f2f5;">
+
+<div style="
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 12px 12px 0 0;
+    font-size: 18px;
+    font-weight: 600;">
+    📄 Naive Product Extraction
+</div>
+
+<div style="
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    padding: 20px;
+    border-radius: 0 0 12px 12px;">
+
+    <p style="color:#555; font-size:14px; margin-top:0;">
+        Enter a product review. The model will extract information using a simple prompt without enforcing a structure.
+    </p>
+
+    <textarea
+        id="review"
+        rows="4"
+        placeholder="e.g. I bought wireless earbuds for 2500 rupees. Sound quality is great but the charging case feels cheap."
+        style="
+            width:100%;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            font-size:14px;
+            box-sizing:border-box;
+            resize:vertical;">
+    </textarea>
+
+    <button
+        onclick="extractInfo()"
+        style="
+            margin-top:10px;
+            padding:10px 20px;
+            background:#ef4444;
+            color:white;
+            border:none;
+            border-radius:20px;
+            cursor:pointer;
+            font-size:14px;">
+        Extract
+    </button>
+
+    <div
+        id="result"
+        style="
+            margin-top:20px;
+            padding:14px;
+            background:#e9e9eb;
+            border-radius:10px;
+            display:none;
+            white-space:pre-wrap;
+            color:#222;">
+    </div>
+
+</div>
+
+<script>
+
+async function extractInfo(){
+
+    const review=document.getElementById("review").value;
+
+    if(!review) return;
+
+    const resultBox=document.getElementById("result");
+
+    resultBox.style.display="block";
+    resultBox.innerText="Extracting...";
+
+    const res=await fetch("/extract",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({review})
+    });
+
+    const data=await res.json();
+
+    resultBox.innerText=data.reply;
+}
+
+</script>
+
+</body>
+</html>
