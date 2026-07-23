@@ -5,7 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import HumanMessage, AIMessage
 
 app = Flask(__name__)
-app.secret_key = "your-secret-key"
+app.secret_key = "124445rvyg87676"
 
 # Load Model
 model = ChatOllama(model="qwen3:0.6b")
